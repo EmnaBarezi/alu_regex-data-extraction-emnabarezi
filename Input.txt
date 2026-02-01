@@ -1,0 +1,58 @@
+Customer Support Ticket #12847
+Date: January 28, 2026
+Agent: Sarah Mitchell (sarah.mitchell@techsupport.com)
+
+CUSTOMER COMPLAINT:
+I ordered a laptop from your website at https://www.techstore.com/laptops on 
+January 15th. The total was $1,299.99 but I was charged $1,499.99 on my credit 
+card ending in 4532 8765 1234 9876.
+
+I've been trying to reach customer service at (555) 123-4567 but nobody answers. 
+I also sent an email to support@techstore.com three days ago with no response.
+
+The order confirmation said it would arrive by 2:30 PM on January 20th, but it's 
+now January 28th and I still haven't received anything.
+
+CUSTOMER INFORMATION:
+Name: John Davis
+Email: john.davis@email-provider.com
+Phone: (555) 987-6543
+Alternate: 555-246-8135
+
+TRANSACTION DETAILS:
+Order ID: #ORD-2026-00847
+Date: January 15, 2026 at 11:45 AM
+Amount Charged: $1,499.99
+Expected Amount: $1,299.99
+Difference: $200.00
+
+Payment Method: Visa ending in 9876
+Shipping: Standard ($15.00)
+Tax: $104.99
+
+AGENT NOTES:
+Customer is frustrated. Called billing department at (555) 800-0123 to verify 
+the charge. They confirmed there was an error - customer was charged for 
+expedited shipping ($215.00) instead of standard shipping ($15.00).
+
+Processed refund of $200.00 to card. Customer should see it in 3-5 business days.
+
+Updated customer via email at john.davis@email-provider.com and left voicemail 
+at (555) 987-6543 at 3:15 PM.
+
+RESOLUTION:
+- Refund processed: $200.00
+- Expedited shipping applied at no charge as apology
+- Package tracking: https://www.shiptrack.com/tracking/TB123456789
+- Estimated delivery: January 30, 2026 by 5:00 PM
+
+FOLLOW-UP:
+Send satisfaction survey to john.davis@email-provider.com after delivery.
+If customer calls again, direct to supervisor at (555) 100-2000.
+
+Internal billing system: https://internal.techstore.com/billing/refunds
+Case closed: January 28, 2026 at 4:30 PM
+
+Total refund amount: $200.00
+Original charge: $1,499.99
+Corrected charge: $1,299.99
