@@ -4,17 +4,17 @@ from pathlib import Path
 
 PATTERNS = {
     # This regex is used to find email addresses
-    'emails': (r"\b[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}\b", 0),
+    'emails': (r"\b[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]@[a-zA-Z0-9][a-zA-Z0-9.-]*\.[a-zA-Z]{2,}\b", 0),
     # This regex is used to find URLs
-    'urls': (r"https?://[^\s]+", re.IGNORECASE),
+    'urls': (r"https?://(?:www\.)?[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)*\.[a-zA-Z]{2,}(?:/[^\s]*)?", re.IGNORECASE),
     # This finds phone numbers
-    'phones': (r"\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}", 0),
+    'phones': (r"(?:\+\d{1,3}[-.\s]?)?(?:\(\d{3}\)|\d{3})[-.\s]?\d{3}[-.\s]?\d{4}\b", 0),
     # This finds credit card numbers (simple pattern)
-    'credit_cards': (r"\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b", 0),
+    'credit_cards': (r"\b(?:\d{4}[-\s]?){3}\d{4}\b|\b\d{4}[-\s]?\d{6}[-\s]?\d{5}\b", 0),
     # This regex finds exact times 
-    'times': (r"\b\d{1,2}:\d{2}(?:\s?[AP]M)?\b", re.IGNORECASE),
+    'times': (r"\b(?:[01]?\d|2[0-3]):[0-5]\d(?:\s?(?:AM|PM|am|pm))?\b", re.IGNORECASE),
     # This regex finds currency amounts 
-    'currency': (r"\$\d{1,3}(?:,\d{3})*(?:\.\d{2})?", 0),
+    'currency': (r"\$\d{1,3}(?:,\d{3})*(?:\.\d{2})?\b", 0),
 }
 
 
@@ -38,6 +38,21 @@ class DataExtractor:
     def mask_credit_card(card: str) -> str:
         digits = re.sub(r"[-\s]", "", card)
         return "**** **** **** " + digits[-4:]
+    
+    @staticmethod
+    def mask_email(email: str) -> str:
+        if "@" not in email:
+            return email
+
+        local, domain = email.split("@", 1)
+
+        # Keep first and last character of local part
+        if len(local) <= 2:
+            masked_local = local[0] + "*"
+        else:
+            masked_local = local[0] + "*" * (len(local) - 2) + local[-1]
+
+        return f"{masked_local}@{domain}"
 
     def extract(self, text: str) -> dict:
         is_valid, warnings = self.validate_input(text)
@@ -54,6 +69,7 @@ class DataExtractor:
             base[name] = list(seen.keys())
 
         base['credit_cards'] = [self.mask_credit_card(c) for c in base.get('credit_cards', [])]
+        base['emails'] = [self.mask_email(email) for email in base.get('emails', [])]
         return base
 
 
@@ -79,11 +95,11 @@ def print_summary(results: dict) -> None:
 
 
 def main() -> None:
-    p = Path('input.txt')
+    p = Path('Input.txt')
     text = p.read_text(encoding='utf-8') if p.exists() else ''
     extractor = DataExtractor()
     results = extractor.extract(text)
-    print_summary(results)
+    
     Path('output.json').write_text(json.dumps(results, indent=2), encoding='utf-8')
     print("Results saved to output.json")
 
